@@ -7,20 +7,15 @@
 
 import Foundation
 
-struct Service: Hashable, Codable, Identifiable {
-    var id = UUID()
-    var date: Date
-    var car: Car
-    var type: ServiceType
-    var milage: Int
+struct Service: Identifiable, Codable {
+    var id: UUID = UUID()
+    var date: Date = Date()
+    var car: Car = Car.porsche
+    var type: ServiceType = ServiceType.oil
+    var milage: Int = 0
     var details: String = ""
     var vendor: String = ""
-    var cost: Float = 0.0
-    
-    static func addServiceRecord() -> Service {
-        let new = Service(date: Date(), car: Car.porsche, type: ServiceType.oil, milage: 99999, cost: 99.99)
-        return new
-    }
+    var cost: Float = 1.99
 }
 
 enum Car: String, Identifiable, CaseIterable, Codable {

@@ -11,19 +11,13 @@ struct ServiceAdd: View {
     @EnvironmentObject var model: Model
     @Environment(\.presentationMode) var presentationMode:Binding<PresentationMode>
     
-    @State private var iDate = Date()
-    @State private var iCar: Car = .porsche
-    @State private var iType: ServiceType = .oil
-    @State private var iMilage: Int=0
-    @State private var iDetails = ""
-    @State private var iVendor = ""
-    @State private var iCost: Float=0.0
+    @State var rec : Service = Service()
     
     var body: some View {
         NavigationView {
             VStack (alignment: .leading) {
                 // Show service record form
-                ServiceRecord()
+                ServiceRecord(rec: Service())
                 
                 HStack { // action buttons
                     Button(action: {()
@@ -42,8 +36,8 @@ struct ServiceAdd: View {
     }
     
     private func addNewService () {
-        let new = Service(date: iDate, car: iCar, type: iType, milage: iMilage, details: iDetails,vendor: iVendor, cost: Float(iCost))
-        model.records += [new]
+        print(rec)
+        model.records += [rec]
         Model.saveToFile(records: model.records)
     }
 }

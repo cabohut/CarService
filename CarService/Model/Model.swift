@@ -14,7 +14,7 @@ final class Model: ObservableObject {
     @Published var records: [Service] = []
     
     init() {
-        records = sampleData()
+        // records = sampleData()
         // records = readFromFile()
     }
     
@@ -38,14 +38,15 @@ final class Model: ObservableObject {
     // MARK: return sample data
     private func sampleData() -> [Service] {
         let testData = [
-            Service(date: Date(), car: Car.porsche, type: ServiceType.oil, milage: 50000, cost: 45.99),
-            Service(date: Date(), car: Car.nissan, type: ServiceType.battery, milage: 40000,cost: 95.00),
-            Service(date: Date(), car: Car.lexus, type: ServiceType.oil, milage: 90000, cost: 72.99),
-            Service(date: Date(), car: Car.porsche, type: ServiceType.rotate, milage: 55000, cost: 0.0),
-            Service(date: Date(), car: Car.porsche, type: ServiceType.brakes, milage: 53000, cost: 145.99),
-            Service(date: Date(), car: Car.nissan, type: ServiceType.oil, milage: 45000,cost: 95.00),
-            Service(date: Date(), car: Car.lexus, type: ServiceType.rotate, milage: 92000, cost: 72.99),
-            Service(date: Date(), car: Car.porsche, type: ServiceType.battery, milage: 55000, cost: 100.0)]
+            Service(id: UUID(), date: Date(), car: Car.lexus, type: ServiceType.oil, milage: 0, details: "", vendor: "", cost: 0.0),
+            Service(id: UUID(), date: Date(), car: Car.porsche, type: ServiceType.brakes, milage: 0, details: "", vendor: "", cost: 0.0),
+            Service(id: UUID(), date: Date(), car: Car.nissan, type: ServiceType.tires, milage: 0, details: "", vendor: "", cost: 0.0),
+            Service(id: UUID(), date: Date(), car: Car.porsche, type: ServiceType.rotate, milage: 0, details: "", vendor: "", cost: 0.0),
+            Service(id: UUID(), date: Date(), car: Car.nissan, type: ServiceType.oil, milage: 0, details: "", vendor: "", cost: 0.0),
+            Service(id: UUID(), date: Date(), car: Car.lexus, type: ServiceType.brakes, milage: 0, details: "", vendor: "", cost: 0.0),
+            Service(id: UUID(), date: Date(), car: Car.lexus, type: ServiceType.tires, milage: 0, details: "", vendor: "", cost: 0.0),
+            Service(id: UUID(), date: Date(), car: Car.nissan, type: ServiceType.oil, milage: 0, details: "", vendor: "", cost: 0.0),
+            Service(id: UUID(), date: Date(), car: Car.porsche, type: ServiceType.rotate, milage: 0, details: "", vendor: "", cost: 0.0)]
        return testData
     }
 }

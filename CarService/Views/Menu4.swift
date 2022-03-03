@@ -20,4 +20,3 @@ struct Menu4_Previews: PreviewProvider {
         Menu4()
     }
 }
-
