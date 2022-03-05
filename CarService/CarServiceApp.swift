@@ -15,6 +15,7 @@ struct CarServiceApp: App {
         WindowGroup {
             AppNavigation()
                 .environmentObject(model)
+            // let _ = print(model.records.count)
         }
     }
 }

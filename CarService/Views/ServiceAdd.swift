@@ -11,13 +11,13 @@ struct ServiceAdd: View {
     @EnvironmentObject var model: Model
     @Environment(\.presentationMode) var presentationMode:Binding<PresentationMode>
     
-    @State var rec : Service = Service()
+    @StateObject var rec : Service = Service()
     
     var body: some View {
         NavigationView {
             VStack (alignment: .leading) {
                 // Show service record form
-                ServiceRecord(rec: Service())
+                ServiceRecord()
                 
                 HStack { // action buttons
                     Button(action: {()
@@ -31,16 +31,17 @@ struct ServiceAdd: View {
                         presentationMode.wrappedValue.dismiss()
                     }) { Text("Add") }
                 } .padding()
-            } .navigationBarTitle("New Service Record")
-        }
+            } .navigationTitle("New Service Record")
+        } .environmentObject(rec)
+          .navigationViewStyle(.stack)
     }
     
     private func addNewService () {
-        print(rec)
         model.records += [rec]
         Model.saveToFile(records: model.records)
     }
 }
+
 struct ServiceAdd_Previews: PreviewProvider {
     static var previews: some View {
         Group {

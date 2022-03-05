@@ -10,8 +10,9 @@ import SwiftUI
 struct Menu4: View {
     @EnvironmentObject var model: Model
     
+
     var body: some View {
-        Text("Screen 4")
+        Text("View 3")
     }
 }
 

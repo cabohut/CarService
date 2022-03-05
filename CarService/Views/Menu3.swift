@@ -11,8 +11,9 @@ struct Menu3: View {
     @EnvironmentObject var model: Model
     
     var body: some View {
-        Text("Screen 3")
+        Text("View 4")
     }
+    
 }
 
 struct Menu3_Previews: PreviewProvider {

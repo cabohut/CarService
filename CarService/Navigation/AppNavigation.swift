@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct AppNavigation: View {
+    @EnvironmentObject var model: Model
+    @State private var selection: Tab = .tab1
+    
     enum Tab {
         case tab1
         case tab2
@@ -15,13 +18,11 @@ struct AppNavigation: View {
         case tab4
     }
     
-    @State private var selection: Tab = .tab1
-    
     var body: some View {
         TabView(selection: $selection) {
             NavigationView {
                 ServiceHistory()
-            }
+            } .navigationViewStyle(.stack)
             .tabItem {
                 let menuText = Text("History", comment: "List of previous services")
                 Label {
@@ -34,7 +35,7 @@ struct AppNavigation: View {
             
             NavigationView {
                 Menu2()
-            }
+            } .navigationViewStyle(.stack)
             .tabItem {
                 let menuText = Text("Menu 2", comment: "Menu 2 description")
                 Label {
@@ -47,7 +48,7 @@ struct AppNavigation: View {
 
             NavigationView {
                 Menu3()
-            }
+            } .navigationViewStyle(.stack)
             .tabItem {
                 let menuText = Text("Menu 3", comment: "Menu 3 description")
                 Label {
@@ -60,7 +61,7 @@ struct AppNavigation: View {
 
             NavigationView {
                 Menu4()
-            }
+            } .navigationViewStyle(.stack)
             .tabItem {
                 let menuText = Text("Menu 4", comment: "Menu 4 description")
                 Label {
@@ -70,7 +71,7 @@ struct AppNavigation: View {
                 }.accessibility(label: menuText)
             }
             .tag(Tab.tab4)
-        }
+        } // .environmentObject(model)
     }
 }
 

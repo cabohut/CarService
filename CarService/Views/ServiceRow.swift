@@ -8,15 +8,28 @@
 import SwiftUI
 
 struct ServiceRow: View {
-    var svc: Service
+    @StateObject var rec: Service
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(svc.car.rawValue)
-            HStack {
-                Text(svc.date.formatted(date: .numeric, time: .omitted))
-                Spacer()
-                Text(svc.type.rawValue)
+        HStack {
+            rec.type.img()
+                .font(.system(size: 28))
+                .foregroundColor(.blue)
+                .frame(alignment: .leading)
+
+            VStack (alignment: .leading) {
+                HStack {
+                    Text(rec.car.rawValue.capitalized)
+                        .fontWeight(.bold)
+                    Spacer()
+                    Text(rec.type.rawValue.capitalized)
+                }
+                HStack {
+                    Text(rec.date.formatted(date: .numeric, time: .omitted))
+                    Spacer()
+                    Text(String(rec.milage))
+                        .frame(alignment: .trailing)
+                }
             }
         }
     }
@@ -25,8 +38,7 @@ struct ServiceRow: View {
 struct ServiceRow_Preview: PreviewProvider {
     static var previews: some View {
         Group {
-            ServiceRow(svc: Model().records[0])
-            ServiceRow(svc: Model().records[1])
+            ServiceRow(rec: Service())
         } .previewLayout(.fixed(width: 300, height: 70))
     }
 }

@@ -8,22 +8,31 @@
 import SwiftUI
 
 struct ServiceDetail: View {
-    var svc: Service
+    var rec: Service
+    
+    @State private var showSheet = false
+    @State private var editMode = EditMode.inactive
+    @Environment(\.presentationMode) var presentationMode:Binding<PresentationMode>
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                Text(svc.type.rawValue) .font(.title)
-                Text(svc.date.formatted(date: .numeric, time: .omitted))
+        NavigationView {
+            VStack (alignment: .leading) {
+                ServiceRecord()
+            } .navigationTitle("Service History")
+        } .environmentObject(rec)
+            .navigationViewStyle(.stack)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) { Text("Done") }
+                }
             }
-        }
-        .navigationTitle(svc.car.rawValue)
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct ServiceDetail_Preview: PreviewProvider {
     static var previews: some View {
-        ServiceDetail(svc: Model().records[0])
+        ServiceDetail(rec: Service())
     }
 }

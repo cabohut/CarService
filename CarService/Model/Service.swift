@@ -6,29 +6,51 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct Service: Identifiable, Codable {
+class Service: ObservableObject, Identifiable {
     var id: UUID = UUID()
-    var date: Date = Date()
-    var car: Car = Car.porsche
-    var type: ServiceType = ServiceType.oil
-    var milage: Int = 0
-    var details: String = ""
-    var vendor: String = ""
-    var cost: Float = 1.99
+    @Published var date: Date = Date()
+    @Published var car: Car = Car.porsche
+    @Published var type: ServiceType = ServiceType.oil
+    @Published var milage: Int = 0
+    @Published var details: String = ""
+    @Published var vendor: String = ""
+    @Published var cost: Float = 1.99
 }
 
 enum Car: String, Identifiable, CaseIterable, Codable {
-    case porsche, lexus, nissan
-    var id: Self { self }
+    var id: String { self.rawValue }
+    
+    case porsche
+    case lexus
+    case nissan
+    
 }
 
 enum ServiceType: String, Identifiable, CaseIterable, Codable {
+    var id: String { self.rawValue }
+
     case oil = "Oil Change"
     case tires = "New Tires"
     case rotate = "Rotate Tires"
     case battery = "New Battery"
     case brakes = "Brakes"
     
-    var id: Self { self }
+    func img() -> Image {
+        switch self {
+        case .oil:
+            return Image(systemName: "sun.max.circle.fill")
+        case .tires:
+            return Image(systemName: "tortoise.fill")
+        case .rotate:
+            return Image(systemName: "figure.walk.diamond.fill")
+        case .battery:
+            return Image(systemName: "minus.plus.batteryblock.fill")
+        case .brakes:
+            return Image(systemName: "dollarsign.square")
+        }
+    }
+
 }
+
