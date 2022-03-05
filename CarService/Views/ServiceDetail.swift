@@ -18,7 +18,7 @@ struct ServiceDetail: View {
         NavigationView {
             VStack (alignment: .leading) {
                 ServiceRecord()
-            } .navigationTitle("Service History")
+            } .navigationTitle("Service Record")
         } .environmentObject(rec)
             .navigationViewStyle(.stack)
             .toolbar {
