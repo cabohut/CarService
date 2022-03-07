@@ -20,9 +20,7 @@ struct ServiceHistory: View {
                     Section (content: {
                         ForEach(model.records) { rec in
                             if rec.car == c {
-                                NavigationLink {
-                                    ServiceDetail(rec: rec)
-                                } label: {
+                                NavigationLink (destination: ServiceDetail(rec: rec)){
                                     ServiceRow(rec: rec)
                                 }
                             } else {
@@ -31,23 +29,25 @@ struct ServiceHistory: View {
                         } .onDelete(perform: onDelete)
                     }, header: { Text(c.rawValue) })
                 } else {
-                    EmptyView() // <- required becasue of 'if' above
+                    EmptyView()
                 }
             } // ForEach Car.allCases
         } .navigationTitle("Service History")
             .toolbar {
+                /*
                 ToolbarItem(placement: .navigationBarLeading) {
                     EditButton().font(.headline)
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                 */
+                //ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {showSheet.toggle()}) {
                         if !editMode.isEditing {
                             Image(systemName: "plus")
                         }
-                    } .sheet(isPresented: $showSheet) {
-                        ServiceAdd()
                     }
-                }
+                //}
+            } .sheet(isPresented: $showSheet) {
+                ServiceAdd()
             }
     }
     
@@ -59,7 +59,9 @@ struct ServiceHistory: View {
 
 struct ServiceHistory_Previews: PreviewProvider {
     static var previews: some View {
-        ServiceHistory()
+        NavigationView {
+            Menu4()
+        }
     }
 }
 

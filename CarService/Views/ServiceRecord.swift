@@ -76,7 +76,7 @@ struct ServiceRecord: View {
                 HStack {
                     Text("Cost")
                     padding()
-                    TextField("Total Cost", value: $rec.cost, formatter: NumberFormatter.currency)
+                    TextField("Total Cost", value: $rec.cost, format: .number)
                         .keyboardType(.decimalPad)
                         .modifier(_TextFieldModifier())
                 }

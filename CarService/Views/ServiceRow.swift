@@ -13,9 +13,9 @@ struct ServiceRow: View {
     var body: some View {
         HStack {
             rec.type.img()
-                .font(.system(size: 28))
+                .font(.system(size: 20))
                 .foregroundColor(.blue)
-                .frame(alignment: .leading)
+                .frame(width: 30, alignment: .leading)
             
             VStack {
                 Text(rec.type.rawValue.capitalized)
@@ -28,7 +28,7 @@ struct ServiceRow: View {
             }
             Spacer()
             
-            Text(String(rec.milage)).frame(alignment: .center)
+            Text("\(rec.milage ?? 0)").padding(.trailing, 5)
         }
     }
 }

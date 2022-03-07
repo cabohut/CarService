@@ -16,10 +16,9 @@ struct ServiceDetail: View {
     
     var body: some View {
         NavigationView {
-            VStack (alignment: .leading) {
-                ServiceRecord()
-            } .navigationTitle("Service Record")
-        } .environmentObject(rec)
+            ServiceRecord()
+        } .navigationTitle("Service Record")
+            .environmentObject(rec)
             .navigationViewStyle(.stack)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

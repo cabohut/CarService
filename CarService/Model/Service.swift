@@ -13,10 +13,10 @@ class Service: ObservableObject, Identifiable {
     @Published var date: Date = Date()
     @Published var car: Car = Car.porsche
     @Published var type: ServiceType = ServiceType.oil
-    @Published var milage: Int = 0
+    @Published var milage: Int?
     @Published var details: String = ""
     @Published var vendor: String = ""
-    @Published var cost: Float = 1.99
+    @Published var cost: Float?    
 }
 
 enum Car: String, Identifiable, CaseIterable, Codable {
