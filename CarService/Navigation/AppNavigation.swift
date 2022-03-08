@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct AppNavigation: View {
-    @EnvironmentObject var model: Model
+    @Binding var services: [Service]
     @State private var selection: Tab = .tab1
-    
+    @State private var errorWrapper: ErrorWrapper?
+
     enum Tab {
         case tab1
         case tab2
@@ -21,7 +22,16 @@ struct AppNavigation: View {
     var body: some View {
         TabView(selection: $selection) {
             NavigationView {
-                ServiceHistory()
+                ServicesHistory(services: $services) {
+                    Task {
+                        do {
+                            try await ServicesStore.save(services: services)
+                        } catch {
+                            errorWrapper = ErrorWrapper(error: error, guidance: "Try again later.")
+                        }
+                    }
+
+                }
             } .navigationViewStyle(.stack)
             .tabItem {
                 let menuText = Text("History", comment: "List of previous services")
@@ -77,6 +87,6 @@ struct AppNavigation: View {
 
 struct AppNavigation_Preview: PreviewProvider {
     static var previews: some View {
-        AppNavigation()
+        AppNavigation(services: .constant(Service.sampleData))
     }
 }

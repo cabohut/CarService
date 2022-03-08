@@ -27,9 +27,8 @@ struct _TextFieldModifier: ViewModifier {
 }
 
 struct ServiceRecord: View {
-    @EnvironmentObject var model: Model
-    @EnvironmentObject var rec: Service
-    
+    @Binding var rec: Service
+
     var body: some View {
         List {
             Section {
@@ -93,7 +92,7 @@ struct ServiceRecord: View {
 struct ServiceRecord_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ServiceRecord()
+            ServiceRecord(rec: .constant(Service()))
         }
     }
 }

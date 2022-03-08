@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct Menu3: View {
-    @EnvironmentObject var model: Model
-    
     var body: some View {
-        Text("View 4")
+        Text("View 3")
     }
     
 }

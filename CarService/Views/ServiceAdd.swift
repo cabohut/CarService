@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ServiceAdd: View {
-    @EnvironmentObject var model: Model
-    @Environment(\.presentationMode) var presentationMode:Binding<PresentationMode>
+    @Binding var data: Service
+    //@EnvironmentObject var model: Model
+    //@Environment(\.presentationMode) var presentationMode:Binding<PresentationMode>
     
-    @StateObject var rec : Service = Service()
+    //@StateObject var rec : Service = Service()
     
     var body: some View {
         NavigationView {
             VStack (alignment: .leading) {
                 // Show service record form
-                ServiceRecord()
-                
+                ServiceRecord(rec: $data)
+                /*
                 HStack { // action buttons
                     Button(action: {()
                         presentationMode.wrappedValue.dismiss()
@@ -31,21 +32,21 @@ struct ServiceAdd: View {
                         presentationMode.wrappedValue.dismiss()
                     }) { Text("Add") }
                 } .padding()
-            } .navigationTitle("New Service Record")
-        } .environmentObject(rec)
-          .navigationViewStyle(.stack)
+                 */
+            }
+        }
     }
     
-    private func addNewService () {
-        model.records += [rec]
-        Model.saveToFile(records: model.records)
-    }
+//    private func addNewService () {
+//        model.records += [rec]
+//        Model.saveToFile(records: model.records)
+//    }
 }
 
 struct ServiceAdd_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ServiceAdd()
+            ServiceAdd(data: .constant(Service()))
         }
     }
 }

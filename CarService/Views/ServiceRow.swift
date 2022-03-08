@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ServiceRow: View {
-    @StateObject var rec: Service
+    let rec: Service
     
     var body: some View {
         HStack {

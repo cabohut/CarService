@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct Menu2: View {
-    @EnvironmentObject var model: Model
-    
     enum Flavor: String, CaseIterable, Identifiable {
         case chocolate, vanilla, strawberry
         var id: Self { self }

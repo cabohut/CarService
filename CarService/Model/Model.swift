@@ -10,11 +10,11 @@ import SwiftUI
 let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 let archiveURL = documentsDirectory.appendingPathComponent("car service").appendingPathExtension("plist")
 
-final class Model: ObservableObject {
-    @Published var records: [Service] = []
+class Model: ObservableObject {
+    @Published var services: [Service] = []
     
     init() {
-        records = sampleData()
+        services = sampleData()
         // records = readFromFile()
     }
     

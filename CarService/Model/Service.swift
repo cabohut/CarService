@@ -8,15 +8,31 @@
 import Foundation
 import SwiftUI
 
-class Service: ObservableObject, Identifiable {
+struct Service: Identifiable, Codable {
     var id: UUID = UUID()
-    @Published var date: Date = Date()
-    @Published var car: Car = Car.porsche
-    @Published var type: ServiceType = ServiceType.oil
-    @Published var milage: Int?
-    @Published var details: String = ""
-    @Published var vendor: String = ""
-    @Published var cost: Float?    
+    var date: Date = Date()
+    var car: Car = Car.porsche
+    var type: ServiceType = ServiceType.oil
+    var milage: Int?
+    var details: String = ""
+    var vendor: String = ""
+    var cost: Float?    
+}
+
+extension Service {
+    var data: Service {
+        Service(date: date, car: car, type: type, milage: milage, details: details, vendor: vendor, cost: cost)
+    }
+    
+    mutating func update(from data: Service) {
+        date = data.date
+        car = data.car
+        type = data.type
+        milage = data.milage
+        details = data.details
+        vendor = data.vendor
+        cost = data.cost
+    }
 }
 
 enum Car: String, Identifiable, CaseIterable, Codable {
@@ -54,3 +70,17 @@ enum ServiceType: String, Identifiable, CaseIterable, Codable {
 
 }
 
+extension Service {
+    // MARK: return sample data
+    static let sampleData: [Service] = []
+//        let testData = [
+//            Service(id: UUID(), date: Date(), car: Car.lexus, type: ServiceType.oil, milage: 0, details: "", vendor: "", cost: 0.0),
+//            Service(id: UUID(), date: Date(), car: Car.porsche, type: ServiceType.brakes, milage: 0, details: "", vendor: "", cost: 0.0),
+//            Service(id: UUID(), date: Date(), car: Car.nissan, type: ServiceType.tires, milage: 0, details: "", vendor: "", cost: 0.0),
+//            Service(id: UUID(), date: Date(), car: Car.porsche, type: ServiceType.rotate, milage: 0, details: "", vendor: "", cost: 0.0),
+//            Service(id: UUID(), date: Date(), car: Car.nissan, type: ServiceType.oil, milage: 0, details: "", vendor: "", cost: 0.0),
+//            Service(id: UUID(), date: Date(), car: Car.lexus, type: ServiceType.brakes, milage: 0, details: "", vendor: "", cost: 0.0),
+//            Service(id: UUID(), date: Date(), car: Car.lexus, type: ServiceType.tires, milage: 0, details: "", vendor: "", cost: 0.0),
+//            Service(id: UUID(), date: Date(), car: Car.nissan, type: ServiceType.oil, milage: 0, details: "", vendor: "", cost: 0.0),
+//            Service(id: UUID(), date: Date(), car: Car.porsche, type: ServiceType.rotate, milage: 0, details: "", vendor: "", cost: 0.0)]
+    }

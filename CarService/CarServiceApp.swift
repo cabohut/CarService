@@ -9,13 +9,11 @@ import SwiftUI
 
 @main
 struct CarServiceApp: App {
-    @StateObject private var model = Model()
-    
+    @StateObject private var store = ServicesStore()
+
     var body: some Scene {
         WindowGroup {
-            AppNavigation()
-                .environmentObject(model)
-            // let _ = print(model.records.count)
+            AppNavigation(services: $store.services)
         }
     }
 }
