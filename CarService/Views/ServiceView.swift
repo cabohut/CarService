@@ -40,7 +40,6 @@ struct ServiceView: View {
                                 rec.update(from: data)
                             }
                         }
-
                     }
             }
         }

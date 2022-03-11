@@ -14,7 +14,7 @@ struct Menu2: View {
     }
 
     @State private var selectedFlavor: Flavor = .chocolate
-    @State private var iMilage: Int=0
+    @State private var iCost: Int=0
 
     var body: some View {
         VStack {
@@ -25,12 +25,8 @@ struct Menu2: View {
                     }
                 }
                 HStack {
-                    Text("Milage")
+                    Text("Cost")
                     padding()
-                    TextField("Milage", value: $iMilage, formatter: NumberFormatter())
-                        .padding(5)
-                        .multilineTextAlignment(.center)
-                        .background(Color(0x8ed293, alpha: 0.3))
                 }
             }
         } 

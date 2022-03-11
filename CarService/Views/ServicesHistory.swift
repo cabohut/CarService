@@ -39,6 +39,7 @@ struct ServicesHistory: View {
             .toolbar {
                 Button(action: {
                     isPresentingServiceView = true
+                    newServiceRecord = Service()
                 }) {
                     Image(systemName: "plus")
                 }
@@ -49,14 +50,12 @@ struct ServicesHistory: View {
                             ToolbarItem(placement: .cancellationAction) {
                                 Button("Dismiss") {
                                     isPresentingServiceView = false
-                                    newServiceRecord = Service()
                                 }
                             }
                             ToolbarItem(placement: .confirmationAction) {
                                 Button("Add") {
                                     services.append(newServiceRecord)
                                     isPresentingServiceView = false
-                                    newServiceRecord = Service()
                                 }
                             }
                         }

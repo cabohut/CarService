@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-extension NumberFormatter {
-    static var currency: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        return formatter
-    }
-}
-
 // custom modifier
 struct _TextFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
