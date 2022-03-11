@@ -7,11 +7,30 @@
 
 import SwiftUI
 
+extension Color {
+    // https://bit.ly/3cUKorw
+    init(_ hex: Int, alpha: Double = 1) {
+        let components = (
+            R: Double((hex >> 16) & 0xff) / 255,
+            G: Double((hex >> 08) & 0xff) / 255,
+            B: Double((hex >> 00) & 0xff) / 255
+        )
+        self.init(
+            .sRGB,
+            red: components.R,
+            green: components.G,
+            blue: components.B,
+            opacity: alpha
+        )
+    }
+}
+
 struct AppNavigation: View {
     @Binding var services: [Service]
+    
     @State private var selection: Tab = .tab1
     @State private var errorWrapper: ErrorWrapper?
-
+    
     enum Tab {
         case tab1
         case tab2
@@ -27,61 +46,48 @@ struct AppNavigation: View {
                         do {
                             try await ServicesStore.save(services: services)
                         } catch {
-                            errorWrapper = ErrorWrapper(error: error, guidance: "Try again later.")
+                            errorWrapper = ErrorWrapper(error: Error.self as! Error, guidance: "Try again later.")
                         }
                     }
-
                 }
             } .navigationViewStyle(.stack)
-            .tabItem {
-                let menuText = Text("History", comment: "List of previous services")
-                Label {
-                    menuText
-                } icon: {
-                    Image(systemName: "list.bullet")
-                }.accessibility(label: menuText)
-            }
-            .tag(Tab.tab1)
+                .tabItem {
+                    Label ("History", systemImage: "list.bullet")
+                }
+                .task {
+                    do {
+                        services = try await ServicesStore.load()
+                    } catch {
+                        errorWrapper = ErrorWrapper(error: error, guidance: "CarService will load sample data and continue.")
+                    }
+                }
+                .sheet(item: $errorWrapper, onDismiss: {
+                    services = Service.sampleData
+                }) { wrapper in
+                    ErrorView(errorWrapper: wrapper)
+                }
             
             NavigationView {
                 Menu2()
             } .navigationViewStyle(.stack)
-            .tabItem {
-                let menuText = Text("Menu 2", comment: "Menu 2 description")
-                Label {
-                    menuText
-                } icon: {
-                    Image(systemName: "heart.fill")
-                }.accessibility(label: menuText)
-            }
-            .tag(Tab.tab2)
-
+                .tabItem {
+                    Label ("Menu 2", systemImage: "heart.fill")
+                }
+            
             NavigationView {
                 Menu3()
             } .navigationViewStyle(.stack)
-            .tabItem {
-                let menuText = Text("Menu 3", comment: "Menu 3 description")
-                Label {
-                    menuText
-                } icon: {
-                    Image(systemName: "seal.fill")
-                }.accessibility(label: menuText)
-            }
-            .tag(Tab.tab3)
-
+                .tabItem {
+                    Label ("Menu 3", systemImage: "seal.fill")
+                }
+            
             NavigationView {
                 Menu4()
             } .navigationViewStyle(.stack)
-            .tabItem {
-                let menuText = Text("Menu 4", comment: "Menu 4 description")
-                Label {
-                    menuText
-                } icon: {
-                    Image(systemName: "book.closed.fill")
-                }.accessibility(label: menuText)
-            }
-            .tag(Tab.tab4)
-        } // .environmentObject(model)
+                .tabItem {
+                    Label ("Menu 4", systemImage: "book.closed.fill")
+                }
+        }
     }
 }
 

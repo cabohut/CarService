@@ -72,15 +72,16 @@ enum ServiceType: String, Identifiable, CaseIterable, Codable {
 
 extension Service {
     // MARK: return sample data
-    static let sampleData: [Service] = []
-//        let testData = [
-//            Service(id: UUID(), date: Date(), car: Car.lexus, type: ServiceType.oil, milage: 0, details: "", vendor: "", cost: 0.0),
-//            Service(id: UUID(), date: Date(), car: Car.porsche, type: ServiceType.brakes, milage: 0, details: "", vendor: "", cost: 0.0),
-//            Service(id: UUID(), date: Date(), car: Car.nissan, type: ServiceType.tires, milage: 0, details: "", vendor: "", cost: 0.0),
-//            Service(id: UUID(), date: Date(), car: Car.porsche, type: ServiceType.rotate, milage: 0, details: "", vendor: "", cost: 0.0),
-//            Service(id: UUID(), date: Date(), car: Car.nissan, type: ServiceType.oil, milage: 0, details: "", vendor: "", cost: 0.0),
-//            Service(id: UUID(), date: Date(), car: Car.lexus, type: ServiceType.brakes, milage: 0, details: "", vendor: "", cost: 0.0),
-//            Service(id: UUID(), date: Date(), car: Car.lexus, type: ServiceType.tires, milage: 0, details: "", vendor: "", cost: 0.0),
-//            Service(id: UUID(), date: Date(), car: Car.nissan, type: ServiceType.oil, milage: 0, details: "", vendor: "", cost: 0.0),
-//            Service(id: UUID(), date: Date(), car: Car.porsche, type: ServiceType.rotate, milage: 0, details: "", vendor: "", cost: 0.0)]
-    }
+    static let sampleData: [Service] = [
+        Service(date: Date(), car: Car.porsche, type: ServiceType.oil, milage: 5423, details: "", vendor: "Vendor A", cost: 234.95),
+        Service(date: Date(), car: Car.lexus, type: ServiceType.oil, milage: 1245, details: "", vendor: "", cost: 34.95),
+        Service(date: Date(), car: Car.porsche, type: ServiceType.brakes, milage: 53876, details: "", vendor: "", cost: 763.22),
+        Service(date: Date(), car: Car.nissan, type: ServiceType.tires, milage: 14325, details: "", vendor: "", cost: 0.0),
+        Service(date: Date(), car: Car.porsche, type: ServiceType.rotate, milage: 7654, details: "", vendor: "", cost: 0.0),
+        Service(date: Date(), car: Car.nissan, type: ServiceType.oil, milage: 54690, details: "", vendor: "", cost: 0.0),
+        Service(date: Date(), car: Car.lexus, type: ServiceType.brakes, milage: 54321, details: "", vendor: "", cost: 0.0),
+        Service(date: Date(), car: Car.lexus, type: ServiceType.tires, milage: 84756, details: "", vendor: "", cost: 0.0),
+        Service(date: Date(), car: Car.nissan, type: ServiceType.oil, milage: 12345, details: "", vendor: "", cost: 0.0),
+        Service(date: Date(), car: Car.porsche, type: ServiceType.rotate, milage: 14674, details: "", vendor: "", cost: 0.0)
+    ]
+}

@@ -9,13 +9,12 @@ import SwiftUI
 
 struct ServicesHistory: View {
     @Binding var services: [Service]
+    let saveAction: ()->Void
     
     @Environment(\.scenePhase) private var scenePhase
-    
+
     @State private var isPresentingServiceView = false
     @State private var newServiceRecord = Service()
-    
-    let saveAction: ()->Void
     
     var body: some View {
         List {
@@ -35,12 +34,11 @@ struct ServicesHistory: View {
                 } else {
                     EmptyView()
                 }
-            } // ForEach Car.allCases
+            } 
         } .navigationTitle("Service History")
             .toolbar {
                 Button(action: {
                     isPresentingServiceView = true
-                    let _ = print(isPresentingServiceView)
                 }) {
                     Image(systemName: "plus")
                 }
@@ -63,7 +61,7 @@ struct ServicesHistory: View {
                             }
                         }
                 }
-            } //sheet
+            } // .sheet
             .onChange(of: scenePhase) { phase in
                 if phase == .inactive { saveAction() }
             }
@@ -71,15 +69,14 @@ struct ServicesHistory: View {
     
     private func onDelete(at offsets: IndexSet) {
         services.remove(atOffsets: offsets)
-        //Model.saveToFile(records: model.records)
     }
 }
 
 struct ServiceHistory_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ServicesHistory(services: .constant([Service]()),
-                            saveAction: {})
+            ServicesHistory(services: .constant([Service]()), saveAction: {})
         }
     }
 }
+

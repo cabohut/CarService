@@ -10,8 +10,8 @@ import SwiftUI
 @main
 struct CarServiceApp: App {
     @StateObject private var store = ServicesStore()
-
-    var body: some Scene {
+    
+    var body: some Scene {        
         WindowGroup {
             AppNavigation(services: $store.services)
         }

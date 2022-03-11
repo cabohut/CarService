@@ -9,9 +9,30 @@
 import Foundation
 import SwiftUI
 
+let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+let archiveURL = documentsDirectory.appendingPathComponent("car service").appendingPathExtension("plist")
+
 class ServicesStore: ObservableObject {
     @Published var services: [Service] = []
     
+    // MARK: Save/Load data
+    // from App Development with Swift Book, section 4.7 Saving Data (p. 663)
+    static func saveToFile (records: [Service]) {
+        let propertyListEncoder = PropertyListEncoder()
+        let encodedFile = try? propertyListEncoder.encode(records)
+        try? encodedFile?.write(to: fileURL(), options: .noFileProtection)
+    }
+    
+    private func readFromFile () -> [Service] {
+        let propertyListDecoder = PropertyListDecoder()
+        if let retrievedFileData = try? Data(contentsOf: ServicesStore.fileURL()),
+            let decodedFile = try? propertyListDecoder.decode(Array<Service>.self, from: retrievedFileData) {
+            return decodedFile
+        }
+        return []
+    }
+
+    // Scrumdinger methods below
     private static func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory,
                                        in: .userDomainMask,
@@ -85,5 +106,4 @@ class ServicesStore: ObservableObject {
             }
         }
     }
-
 }
