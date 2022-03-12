@@ -23,13 +23,16 @@ struct ServicesHistory: View {
                     Section (content: {
                         ForEach($services) { $rec in
                             if rec.car == c {
-                                NavigationLink (destination: ServiceView(rec: $rec)){
+                                NavigationLink (destination: //ServiceView(rec: $rec)){
+                                    ServiceForm(rec: $rec)) {
                                     ServiceRow(rec: rec)
                                 }
                             } else {
                                 EmptyView()
                             }
-                        } .onDelete(perform: onDelete)
+                        } .onDelete { indices in
+                            services.remove(atOffsets: indices)
+                        }
                     }, header: { Text(c.rawValue) })
                 } else {
                     EmptyView()
@@ -45,7 +48,7 @@ struct ServicesHistory: View {
                 }
             } .sheet(isPresented: $isPresentingServiceView) {
                 NavigationView {
-                    ServiceRecord(rec: $newServiceRecord)
+                    ServiceForm(rec: $newServiceRecord)
                         .toolbar {
                             ToolbarItem(placement: .cancellationAction) {
                                 Button("Dismiss") {
@@ -64,10 +67,6 @@ struct ServicesHistory: View {
             .onChange(of: scenePhase) { phase in
                 if phase == .inactive { saveAction() }
             }
-    }
-    
-    private func onDelete(at offsets: IndexSet) {
-        services.remove(atOffsets: offsets)
     }
 }
 

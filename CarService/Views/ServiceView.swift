@@ -9,15 +9,31 @@ import SwiftUI
 
 struct ServiceView: View {
     @Binding var rec: Service
-
+    
     @State private var isPresentingServiceView = false
     @State private var data = Service()
     
     var body: some View {
         NavigationView {
-            Text("hi")
+            List {
+                rec.type.img()
+                    .font(.system(size: 20))
+                    .foregroundColor(.blue)
+                
+                Text(rec.date.formatted(date: .abbreviated, time: .omitted))
+                    .foregroundColor(.gray)
+                    .font(.caption)
+                
+                Text(rec.type.rawValue.capitalized)
+                
+                Text("\(rec.milage ?? 0)")
+                
+                Text(rec.vendor)
+                
+                Text("\(rec.cost ?? 0)")
+            }
         }
-        .navigationTitle("Editing View")
+        .navigationTitle(Text(rec.car.rawValue.capitalized))
         .toolbar {
             Button("Edit") {
                 isPresentingServiceView = true
@@ -26,8 +42,8 @@ struct ServiceView: View {
         }
         .sheet(isPresented: $isPresentingServiceView) {
             NavigationView {
-                ServiceRecord(rec: $data)
-                    .navigationTitle(Text("Hey"))
+                ServiceForm(rec: $data)
+                    .navigationTitle(Text(data.type.rawValue))
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Cancel") {
