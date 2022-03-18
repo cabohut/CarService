@@ -14,6 +14,7 @@ let archiveURL = documentsDirectory.appendingPathComponent("car service").append
 
 class ServicesStore: ObservableObject {
     @Published var services: [Service] = []
+    @Published var recentValue = -6
     
     // MARK: Save/Load data
     // Scrumdinger methods below

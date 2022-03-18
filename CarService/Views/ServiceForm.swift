@@ -18,6 +18,12 @@ struct _TextFieldModifier: ViewModifier {
     }
 }
 
+let currencyFormatter: NumberFormatter = {
+    let f = NumberFormatter()
+    f.numberStyle = .currency
+    return f
+} ()
+
 struct ServiceForm: View {
     @Binding var rec: Service
 
@@ -33,7 +39,7 @@ struct ServiceForm: View {
                 // Car
                 Picker("Car", selection: $rec.car) {
                     ForEach(Car.allCases) { c in
-                        Text(String(c.rawValue.capitalized)).tag(c)
+                        Text(c.rawValue.capitalized).tag(c)
                     }
                 }
                 
@@ -67,7 +73,7 @@ struct ServiceForm: View {
                 HStack {
                     Text("Cost")
                     padding()
-                    TextField("Total Cost", value: $rec.cost, format: .number)
+                    TextField("Total Cost", value: $rec.cost, formatter: currencyFormatter)
                         .keyboardType(.decimalPad)
                         .modifier(_TextFieldModifier())
                 }

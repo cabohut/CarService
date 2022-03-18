@@ -12,19 +12,35 @@ struct ServicesHistory: View {
     let saveAction: ()->Void
     
     @Environment(\.scenePhase) private var scenePhase
-
-    @State private var isPresentingServiceView = false
+    
+    @State private var isPresentingServiceForm = false
     @State private var newServiceRecord = Service()
+    @State private var onlyRecent = false
+    @State private var filterValue = 6
+    let sixMonthsAgo = Calendar.current.date(byAdding: .month, value: -6, to: Date())
+    
+    func inRange(interval: Int) -> Bool {
+        
+        return true
+    }
     
     var body: some View {
         List {
+            Toggle (isOn: $onlyRecent) {
+                Text("Filter Records")
+            }.toggleStyle(.switch)
+            
+            if onlyRecent {
+                let str = (filterValue > 1) ? "months" : "month"
+                Stepper("\(filterValue) " + str, value: $filterValue, in: 1...600)
+            }
+            
             ForEach(Car.allCases) { c in
                 if (services.filter({ $0.car == c }).count>0) {
                     Section (content: {
                         ForEach($services) { $rec in
-                            if rec.car == c {
-                                NavigationLink (destination: //ServiceView(rec: $rec)){
-                                    ServiceForm(rec: $rec)) {
+                            if (rec.car == c) && (!onlyRecent || (onlyRecent && rec.date > Calendar.current.date(byAdding: .month, value: -filterValue, to: Date())! )) {
+                                NavigationLink(destination:ServiceForm(rec: $rec)) {
                                     ServiceRow(rec: rec)
                                 }
                             } else {
@@ -37,28 +53,28 @@ struct ServicesHistory: View {
                 } else {
                     EmptyView()
                 }
-            } 
+            }
         } .navigationTitle("Service History")
             .toolbar {
                 Button(action: {
-                    isPresentingServiceView = true
+                    isPresentingServiceForm = true
                     newServiceRecord = Service()
                 }) {
                     Image(systemName: "plus")
                 }
-            } .sheet(isPresented: $isPresentingServiceView) {
+            } .sheet(isPresented: $isPresentingServiceForm) {
                 NavigationView {
                     ServiceForm(rec: $newServiceRecord)
                         .toolbar {
                             ToolbarItem(placement: .cancellationAction) {
-                                Button("Dismiss") {
-                                    isPresentingServiceView = false
+                                Button("Cancel") {
+                                    isPresentingServiceForm = false
                                 }
                             }
                             ToolbarItem(placement: .confirmationAction) {
                                 Button("Add") {
                                     services.append(newServiceRecord)
-                                    isPresentingServiceView = false
+                                    isPresentingServiceForm = false
                                 }
                             }
                         }
@@ -77,4 +93,3 @@ struct ServiceHistory_Previews: PreviewProvider {
         }
     }
 }
-

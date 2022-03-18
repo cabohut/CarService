@@ -1,5 +1,5 @@
 //
-//  ServiceView.swift
+//  xServiceView.swift
 //  CarService
 //
 //  Created by sam on 2/27/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ServiceView: View {
+struct xServiceView: View {
     @Binding var rec: Service
     
     @State private var isPresentingServiceView = false
@@ -62,8 +62,8 @@ struct ServiceView: View {
     }
 }
 
-struct ServiceView_Preview: PreviewProvider {
+struct xServiceView_Preview: PreviewProvider {
     static var previews: some View {
-        ServiceView(rec: .constant(Service()))
+        xServiceView(rec: .constant(Service()))
     }
 }

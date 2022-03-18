@@ -28,6 +28,7 @@ extension Color {
 struct AppNavigation: View {
     @Binding var services: [Service]
     
+    @State private var fileDataLoaded = false
     @State private var selection: Tab = .tab1
     @State private var errorWrapper: ErrorWrapper?
     
@@ -44,6 +45,7 @@ struct AppNavigation: View {
                 ServicesHistory(services: $services) {
                     Task {
                         do {
+                            let _ = print("Saving...")
                             try await ServicesStore.save(services: services)
                         } catch {
                             errorWrapper = ErrorWrapper(error: Error.self as! Error, guidance: "Try again later.")
@@ -55,10 +57,16 @@ struct AppNavigation: View {
                     Label ("History", systemImage: "list.bullet")
                 }
                 .task {
-                    do {
-                        services = try await ServicesStore.load()
-                    } catch {
-                        errorWrapper = ErrorWrapper(error: error, guidance: "CarService will load sample data and continue.")
+                    if fileDataLoaded == false {
+                        do {
+                            services = try await ServicesStore.load()
+                            // @@@@@ load sample data
+                            services = Service.sampleData
+                            services = services.sorted { $0 < $1 }
+                            fileDataLoaded = true
+                        } catch {
+                            errorWrapper = ErrorWrapper(error: error, guidance: "CarService will load sample data and continue.")
+                        }
                     }
                 }
                 .sheet(item: $errorWrapper, onDismiss: {
