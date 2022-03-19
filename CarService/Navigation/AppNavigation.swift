@@ -60,7 +60,7 @@ struct AppNavigation: View {
                         do {
                             services = try await ServicesStore.load()
                             // @@@@@ load sample data
-                            //services = Service.sampleData
+                            services = Service.sampleData
                             services = services.sorted { $0.date > $1.date }
                             fileDataLoaded = true
                         } catch {
