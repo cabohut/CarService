@@ -16,23 +16,35 @@ struct ServicesHistory: View {
     @State private var isPresentingServiceForm = false
     @State private var newServiceRecord = Service()
     @State private var onlyRecent = false
-    @State private var filterValue = 6
-    let sixMonthsAgo = Calendar.current.date(byAdding: .month, value: -6, to: Date())
+    @State private var filterValue = 1
     
-    func inRange(interval: Int) -> Bool {
-        
-        return true
+    func earliestServiceMonths() -> Int {
+        let earliestDate = services.min(by: { $0.date < $1.date})?.date
+        return Calendar.current.dateComponents([.month], from: earliestDate ?? Date(), to: Date()).month ?? 0
     }
     
     var body: some View {
         List {
-            Toggle (isOn: $onlyRecent) {
-                Text("Filter Records")
-            }.toggleStyle(.switch)
+            HStack {
+                Text("Filter (months)")
+                
+                Picker(selection: $filterValue, label: Text("")) {
+                    Text("off").tag(1)
+                    Text("3").tag(2)
+                    Text("6").tag(3)
+                    Text("12").tag(4)
+                }.pickerStyle(.segmented)
+            } .font(.caption)
             
-            if onlyRecent {
-                let str = (filterValue > 1) ? "months" : "month"
-                Stepper("\(filterValue) " + str, value: $filterValue, in: 1...600)
+            let numMonths = earliestServiceMonths()
+            if numMonths > 1 {
+                 Toggle (isOn: $onlyRecent) {
+                 Text("Filter Records")
+                 }.toggleStyle(.switch)
+                
+                if onlyRecent {
+                    Stepper("Showing the last \(filterValue) \((filterValue > 1) ? "months" : "month")", value: $filterValue, in: 1...numMonths+1) .font(.caption)
+                }
             }
             
             ForEach(Car.allCases) { c in

@@ -45,7 +45,6 @@ struct AppNavigation: View {
                 ServicesHistory(services: $services) {
                     Task {
                         do {
-                            let _ = print("Saving...")
                             try await ServicesStore.save(services: services)
                         } catch {
                             errorWrapper = ErrorWrapper(error: Error.self as! Error, guidance: "Try again later.")
@@ -61,8 +60,8 @@ struct AppNavigation: View {
                         do {
                             services = try await ServicesStore.load()
                             // @@@@@ load sample data
-                            services = Service.sampleData
-                            services = services.sorted { $0 < $1 }
+                            //services = Service.sampleData
+                            services = services.sorted { $0.date > $1.date }
                             fileDataLoaded = true
                         } catch {
                             errorWrapper = ErrorWrapper(error: error, guidance: "CarService will load sample data and continue.")

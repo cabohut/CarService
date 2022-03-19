@@ -79,7 +79,6 @@ enum ServiceType: String, Identifiable, CaseIterable, Codable {
             return Image(systemName: "dollarsign.square")
         }
     }
-
 }
 
 func convertDate(date: String) -> Date {
