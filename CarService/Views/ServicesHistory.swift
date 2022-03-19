@@ -15,43 +15,34 @@ struct ServicesHistory: View {
     
     @State private var isPresentingServiceForm = false
     @State private var newServiceRecord = Service()
-    @State private var onlyRecent = false
-    @State private var filterValue = 1
+    @State private var filterValue = 0
     
-    func earliestServiceMonths() -> Int {
-        let earliestDate = services.min(by: { $0.date < $1.date})?.date
-        return Calendar.current.dateComponents([.month], from: earliestDate ?? Date(), to: Date()).month ?? 0
+    func okToShow(dt: Date, filter: Int) -> Bool {
+        if filter == 0 || (filter > 0 && dt > Calendar.current.date(byAdding: .month, value: -filter, to: Date())! ) {
+            return true
+        } else {
+            return false
+        }
     }
     
     var body: some View {
         List {
             HStack {
-                Text("Filter (months)")
+                Text("Filter (months)") .font(.caption)
                 
                 Picker(selection: $filterValue, label: Text("")) {
-                    Text("off").tag(1)
-                    Text("3").tag(2)
-                    Text("6").tag(3)
-                    Text("12").tag(4)
+                    Text("off").tag(0)
+                    Text("3").tag(3)
+                    Text("6").tag(6)
+                    Text("12").tag(12)
                 }.pickerStyle(.segmented)
-            } .font(.caption)
-            
-            let numMonths = earliestServiceMonths()
-            if numMonths > 1 {
-                 Toggle (isOn: $onlyRecent) {
-                 Text("Filter Records")
-                 }.toggleStyle(.switch)
-                
-                if onlyRecent {
-                    Stepper("Showing the last \(filterValue) \((filterValue > 1) ? "months" : "month")", value: $filterValue, in: 1...numMonths+1) .font(.caption)
-                }
-            }
+            } .padding([.bottom, .top], 5)
             
             ForEach(Car.allCases) { c in
                 if (services.filter({ $0.car == c }).count>0) {
                     Section (content: {
                         ForEach($services) { $rec in
-                            if (rec.car == c) && (!onlyRecent || (onlyRecent && rec.date > Calendar.current.date(byAdding: .month, value: -filterValue, to: Date())! )) {
+                            if (rec.car == c) && okToShow(dt: rec.date, filter: filterValue) {
                                 NavigationLink(destination:ServiceForm(rec: $rec)) {
                                     ServiceRow(rec: rec)
                                 }
