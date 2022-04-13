@@ -58,25 +58,28 @@ enum ServiceType: String, Identifiable, CaseIterable, Codable {
     case smog = "Smog Check"
     case alignment = "Alignment"
     case other = "Other"
+    case odometer = "odometer"
     
     func img() -> Image {
         switch self {
         case .oil:
-            return Image(systemName: "sun.max.circle.fill")
+            return Image("service.oil")
         case .tires:
-            return Image(systemName: "tortoise.fill")
+            return Image("service.tires")
         case .rotate:
-            return Image(systemName: "figure.walk.diamond.fill")
+            return Image("service.rotate-tires")
         case .battery:
-            return Image(systemName: "minus.plus.batteryblock.fill")
+            return Image(systemName: "minus.plus.batteryblock")
         case .brakes:
-            return Image(systemName: "dollarsign.square")
+            return Image("service.brakes")
         case .smog:
-            return Image(systemName: "dollarsign.square")
+            return Image(systemName: "checkmark.seal")
         case .alignment:
-            return Image(systemName: "dollarsign.square")
+            return Image("service.alignment")
         case .other:
-            return Image(systemName: "dollarsign.square")
+            return Image("service.engine")
+        case .odometer:
+            return Image("service.odometer")
         }
     }
 }
@@ -92,6 +95,8 @@ func convertDate(date: String) -> Date {
 extension Service {
     // MARK: return sample data
     static let sampleData: [Service] = [
+        Service(date: convertDate(date: "2022-03-31"), car: Car.lexus, type: ServiceType.brakes, milage: 105185, details: "", vendor: "Roo", cost: 600.00),
+        Service(date: convertDate(date: "2022-03-30"), car: Car.lexus, type: ServiceType.oil, milage: 105150, details: "", vendor: "Evans", cost: 78.00),
         Service(date: convertDate(date: "2021-07-21"), car: Car.lexus, type: ServiceType.tires, milage: 97965, details: "", vendor: "Costco", cost: 671.27),
         Service(date: convertDate(date: "2021-08-10"), car: Car.lexus, type: ServiceType.smog, milage: 98207, details: "", vendor: "Akon Auto Center", cost: 48.20),
         Service(date: convertDate(date: "2021-08-10"), car: Car.lexus, type: ServiceType.alignment, milage: 98196, details: "", vendor: "EDZ Tires", cost: 59.00),
@@ -119,7 +124,7 @@ extension Service {
         Service(date: convertDate(date: "2019-12-24"), car: Car.nissan, type: ServiceType.rotate, milage: 38239, details: "", vendor: "Discount Tire", cost: 0),
         Service(date: convertDate(date: "2021-12-16"), car: Car.nissan, type: ServiceType.other, milage: 77220, details: "ABS recall", vendor: "Mossy Nissan", cost: 0),
 
-
+        Service(date: convertDate(date: "2022-04-012"), car: Car.porsche, type: ServiceType.odometer, milage: 80000, details: "", vendor: "", cost: 0),
         Service(date: convertDate(date: "2021-08-05"), car: Car.porsche, type: ServiceType.oil, milage: 78497, details: "", vendor: "Performance", cost: 159.24),
         Service(date: convertDate(date: "2018-12-19"), car: Car.porsche, type: ServiceType.oil, milage: 72292, details: "", vendor: "Performance", cost: 129.74),
         Service(date: convertDate(date: "2018-01-12"), car: Car.porsche, type: ServiceType.oil, milage: 67314, details: "", vendor: "Performance", cost: 131.89),

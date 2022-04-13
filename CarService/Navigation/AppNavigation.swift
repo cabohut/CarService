@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+private var DEBUG = true
 
 extension Color {
     // https://bit.ly/3cUKorw
@@ -59,8 +60,9 @@ struct AppNavigation: View {
                     if fileDataLoaded == false {
                         do {
                             services = try await ServicesStore.load()
-                            // @@@@@ load sample data 
-                            services = Service.sampleData
+                            if DEBUG {
+                                services = Service.sampleData
+                            }
                             services = services.sorted { $0.date > $1.date }
                             fileDataLoaded = true
                         } catch {
@@ -69,6 +71,7 @@ struct AppNavigation: View {
                     }
                 }
                 .sheet(item: $errorWrapper, onDismiss: {
+                    // encountered an error and need to load the sample data
                     services = Service.sampleData
                 }) { wrapper in
                     ErrorView(errorWrapper: wrapper)

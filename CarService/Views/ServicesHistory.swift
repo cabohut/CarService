@@ -18,25 +18,22 @@ struct ServicesHistory: View {
     @State private var filterValue = 0
     
     func okToShow(dt: Date, filter: Int) -> Bool {
-        if filter == 0 || (filter > 0 && dt > Calendar.current.date(byAdding: .month, value: -filter, to: Date())! ) {
-            return true
-        } else {
-            return false
-        }
+        return filter == 0 || (filter > 0 && dt > Calendar.current.date(byAdding: .month, value: -filter, to: Date())! )
     }
     
     var body: some View {
         List {
             HStack {
-                Text("Filter (months)") .font(.caption)
+                Text("Filter").fontWeight(.bold)
                 
                 Picker(selection: $filterValue, label: Text("")) {
                     Text("off").tag(0)
-                    Text("3").tag(3)
-                    Text("6").tag(6)
-                    Text("12").tag(12)
+                    Text("3 m").tag(3)
+                    Text("6 m").tag(6)
+                    Text("1 year").tag(12)
                 }.pickerStyle(.segmented)
-            } .padding([.bottom, .top], 5)
+                    .font(.caption)
+            } .padding([.bottom, .top], 7)
             
             ForEach(Car.allCases) { c in
                 if (services.filter({ $0.car == c }).count>0) {

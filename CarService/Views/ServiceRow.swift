@@ -13,18 +13,24 @@ struct ServiceRow: View {
     var body: some View {
         HStack {
             rec.type.img()
-                .font(.system(size: 20))
-                .foregroundColor(.blue)
-                .frame(width: 30, alignment: .leading)
-            
+                .foregroundColor(.orange)
+                .frame(width: 30, alignment: .center)
+                .font(Font.system(size: 22, weight: .regular))
+
             VStack {
-                Text(rec.type.rawValue.capitalized)
-                    .bold()
-                    .frame(width: 160, alignment: .leading)
                 Text(rec.date.formatted(date: .abbreviated, time: .omitted))
                     .frame(width: 160, alignment: .leading)
-                    .foregroundColor(.gray)
-                    .font(.caption)
+                if rec.details.isEmpty {
+                    Text(rec.type.rawValue.capitalized)
+                        .frame(width: 160, alignment: .leading)
+                        .foregroundColor(.gray)
+                        .font(.caption)
+                } else {
+                    Text(rec.type.rawValue.capitalized + ", " + rec.details)
+                        .frame(width: 160, alignment: .leading)
+                        .foregroundColor(.gray)
+                        .font(.caption)
+                } 
             }
             Spacer()
             
