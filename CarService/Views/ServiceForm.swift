@@ -56,7 +56,7 @@ struct ServiceForm: View {
                 HStack {
                     Text("Milage")
                     padding()
-                    TextField("Service Milage", value: $rec.milage, format: .number)
+                    TextField("Milage", value: $rec.milage, format: .number)
                         .keyboardType(.numberPad)
                         .modifier(_TextFieldModifier())
                 }

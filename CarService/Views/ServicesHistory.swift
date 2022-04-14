@@ -78,7 +78,7 @@ struct ServicesHistory: View {
                                 }
                             }
                         }
-                }
+                } 
             } // .sheet
             .onChange(of: scenePhase) { phase in
                 if phase == .inactive { saveAction() }

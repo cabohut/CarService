@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-private var DEBUG = true
+private var DEBUG = false
 
 extension Color {
     // https://bit.ly/3cUKorw
@@ -63,7 +63,8 @@ struct AppNavigation: View {
                             if DEBUG {
                                 services = Service.sampleData
                             }
-                            services = services.sorted { $0.date > $1.date }
+                            services = services.sorted {
+                                $0.date > $1.date }
                             fileDataLoaded = true
                         } catch {
                             errorWrapper = ErrorWrapper(error: error, guidance: "CarService will load sample data and continue.")
