@@ -1,5 +1,5 @@
 //
-//  Menu3.swift
+//  Cars.swift
 //  CarService
 //
 //  Created by sam on 2/26/22.
@@ -7,16 +7,14 @@
 
 import SwiftUI
 
-struct Menu3: View {
+struct Cars: View {
     var body: some View {
-        Text("View 3")
+        Text("View 4")
     }
-    
 }
 
-struct Menu3_Previews: PreviewProvider {
+struct Cars_Previews: PreviewProvider {
     static var previews: some View {
-        Menu3()
+        Cars()
     }
 }
-

@@ -16,7 +16,7 @@ struct Service: Identifiable, Codable, Comparable {
     var id: UUID = UUID()
     var date: Date = Date()
     var car: Car = Car.porsche
-    var type: ServiceType = ServiceType.oil
+    var type: ServiceType = ServiceType.odometer
     var milage: Int?
     var details: String = ""
     var vendor: String = ""
@@ -50,6 +50,7 @@ enum Car: String, Identifiable, CaseIterable, Codable {
 enum ServiceType: String, Identifiable, CaseIterable, Codable {
     var id: String { self.rawValue }
 
+    case odometer = "Odometer"
     case oil = "Oil Change"
     case tires = "New Tires"
     case rotate = "Rotate Tires"
@@ -58,10 +59,11 @@ enum ServiceType: String, Identifiable, CaseIterable, Codable {
     case smog = "Smog Check"
     case alignment = "Alignment"
     case other = "Other"
-    case odometer = "odometer"
     
     func img() -> Image {
         switch self {
+        case .odometer:
+            return Image("service.odometer")
         case .oil:
             return Image("service.oil")
         case .tires:
@@ -77,9 +79,8 @@ enum ServiceType: String, Identifiable, CaseIterable, Codable {
         case .alignment:
             return Image("service.alignment")
         case .other:
-            return Image("service.engine")
-        case .odometer:
-            return Image("service.odometer")
+            // return Image("service.engine")
+            return Image(systemName: "wrench")
         }
     }
 }
@@ -122,7 +123,7 @@ extension Service {
         Service(date: convertDate(date: "2019-02-13"), car: Car.nissan, type: ServiceType.tires, milage: 22233, details: "(2) Michelin Defender 235/65R18", vendor: "Discount Tire", cost: 464.66),
         Service(date: convertDate(date: "2019-07-06"), car: Car.nissan, type: ServiceType.tires, milage: 30000, details: "(2) Michelin Defender 235/65R18", vendor: "Discount Tire", cost: 457.42),
         Service(date: convertDate(date: "2019-12-24"), car: Car.nissan, type: ServiceType.rotate, milage: 38239, details: "", vendor: "Discount Tire", cost: 0),
-        Service(date: convertDate(date: "2021-12-16"), car: Car.nissan, type: ServiceType.other, milage: 77220, details: "ABS recall", vendor: "Mossy Nissan", cost: 0),
+        Service(date: convertDate(date: "2021-12-16"), car: Car.nissan, type: ServiceType.odometer, milage: 77220, details: "ABS recall", vendor: "Mossy Nissan", cost: 0),
 
         Service(date: convertDate(date: "2022-04-012"), car: Car.porsche, type: ServiceType.odometer, milage: 80000, details: "", vendor: "", cost: 0),
         Service(date: convertDate(date: "2021-08-05"), car: Car.porsche, type: ServiceType.oil, milage: 78497, details: "", vendor: "Performance", cost: 159.24),

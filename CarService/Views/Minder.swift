@@ -1,5 +1,5 @@
 //
-//  Menu2.swift
+//  Minder.swift
 //  CarService
 //
 //  Created by sam on 2/26/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Menu2: View {
+struct Minder: View {
     enum Flavor: String, CaseIterable, Identifiable {
         case chocolate, vanilla, strawberry
         var id: Self { self }
@@ -33,9 +33,9 @@ struct Menu2: View {
     }
 }
 
-struct Menu2_Previews: PreviewProvider {
+struct Minder_Previews: PreviewProvider {
     static var previews: some View {
-        Menu2()
+        Minder()
     }
 }
 

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-private var DEBUG = false
+private var DEBUG = true
 
 extension Color {
     // https://bit.ly/3cUKorw
@@ -54,7 +54,7 @@ struct AppNavigation: View {
                 }
             } .navigationViewStyle(.stack)
                 .tabItem {
-                    Label ("History", systemImage: "list.bullet")
+                    Label ("Service", systemImage: "clock")
                 }
                 .task {
                     if fileDataLoaded == false {
@@ -79,26 +79,19 @@ struct AppNavigation: View {
                 }
             
             NavigationView {
-                Menu2()
+                Minder()
             } .navigationViewStyle(.stack)
                 .tabItem {
-                    Label ("Menu 2", systemImage: "heart.fill")
+                    Label ("Minder", systemImage: "exclamationmark.triangle")
                 }
             
             NavigationView {
-                Menu3()
+                Cars()
             } .navigationViewStyle(.stack)
                 .tabItem {
-                    Label ("Menu 3", systemImage: "seal.fill")
+                    Label ("Cars", systemImage: "car.2.fill")
                 }
-            
-            NavigationView {
-                Menu4()
-            } .navigationViewStyle(.stack)
-                .tabItem {
-                    Label ("Menu 4", systemImage: "book.closed.fill")
-                }
-        }
+        } .accentColor(.orange)
     }
 }
 

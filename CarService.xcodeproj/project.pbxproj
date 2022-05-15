@@ -18,9 +18,8 @@
 		22A6D54C27CCA0B800F1DBAC /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A6D54B27CCA0B800F1DBAC /* Service.swift */; };
 		22A6D54E27CCA1D600F1DBAC /* ServiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A6D54D27CCA1D500F1DBAC /* ServiceRow.swift */; };
 		22BACFC927D018B000CC7151 /* ServiceForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BACFC827D018B000CC7151 /* ServiceForm.swift */; };
-		22D3027227CD838B001E7C12 /* Menu2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D3027127CD838B001E7C12 /* Menu2.swift */; };
-		22D3027427CD83DF001E7C12 /* Menu3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D3027327CD83DF001E7C12 /* Menu3.swift */; };
-		22D3027627CD8406001E7C12 /* Menu4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D3027527CD8406001E7C12 /* Menu4.swift */; };
+		22D3027227CD838B001E7C12 /* Minder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D3027127CD838B001E7C12 /* Minder.swift */; };
+		22D3027627CD8406001E7C12 /* Cars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D3027527CD8406001E7C12 /* Cars.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,9 +35,8 @@
 		22A6D54B27CCA0B800F1DBAC /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		22A6D54D27CCA1D500F1DBAC /* ServiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRow.swift; sourceTree = "<group>"; };
 		22BACFC827D018B000CC7151 /* ServiceForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceForm.swift; sourceTree = "<group>"; };
-		22D3027127CD838B001E7C12 /* Menu2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu2.swift; sourceTree = "<group>"; };
-		22D3027327CD83DF001E7C12 /* Menu3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu3.swift; sourceTree = "<group>"; };
-		22D3027527CD8406001E7C12 /* Menu4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu4.swift; sourceTree = "<group>"; };
+		22D3027127CD838B001E7C12 /* Minder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minder.swift; sourceTree = "<group>"; };
+		22D3027527CD8406001E7C12 /* Cars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cars.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,10 +110,9 @@
 			children = (
 				22A6D53D27CB60A300F1DBAC /* ServicesHistory.swift */,
 				22BACFC827D018B000CC7151 /* ServiceForm.swift */,
-				22D3027127CD838B001E7C12 /* Menu2.swift */,
-				22D3027327CD83DF001E7C12 /* Menu3.swift */,
-				22D3027527CD8406001E7C12 /* Menu4.swift */,
 				22A6D54D27CCA1D500F1DBAC /* ServiceRow.swift */,
+				22D3027127CD838B001E7C12 /* Minder.swift */,
+				22D3027527CD8406001E7C12 /* Cars.swift */,
 				22946E1E27D7360D00A43961 /* ErrorView.swift */,
 			);
 			path = Views;
@@ -192,16 +189,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				22946E1B27D721DF00A43961 /* ServicesStore.swift in Sources */,
-				22D3027627CD8406001E7C12 /* Menu4.swift in Sources */,
+				22D3027627CD8406001E7C12 /* Cars.swift in Sources */,
 				22A6D53E27CB60A300F1DBAC /* ServicesHistory.swift in Sources */,
 				22A6D53C27CB60A300F1DBAC /* CarServiceApp.swift in Sources */,
 				22A4C92D27CD70D800856FB4 /* AppNavigation.swift in Sources */,
 				22A6D54C27CCA0B800F1DBAC /* Service.swift in Sources */,
 				22BACFC927D018B000CC7151 /* ServiceForm.swift in Sources */,
 				22946E1D27D731F200A43961 /* ErrorWrapper.swift in Sources */,
-				22D3027227CD838B001E7C12 /* Menu2.swift in Sources */,
+				22D3027227CD838B001E7C12 /* Minder.swift in Sources */,
 				22946E1F27D7360D00A43961 /* ErrorView.swift in Sources */,
-				22D3027427CD83DF001E7C12 /* Menu3.swift in Sources */,
 				22A6D54E27CCA1D600F1DBAC /* ServiceRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -65,6 +65,7 @@ struct ServicesHistory: View {
             } .sheet(isPresented: $isPresentingServiceForm) {
                 NavigationView {
                     ServiceForm(rec: $newServiceRecord)
+                        .navigationTitle("Service Details")
                         .toolbar {
                             ToolbarItem(placement: .cancellationAction) {
                                 Button("Cancel") {
@@ -74,6 +75,8 @@ struct ServicesHistory: View {
                             ToolbarItem(placement: .confirmationAction) {
                                 Button("Add") {
                                     services.append(newServiceRecord)
+                                    services = services.sorted {
+                                        $0.date > $1.date }
                                     isPresentingServiceForm = false
                                 }
                             }
