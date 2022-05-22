@@ -15,46 +15,46 @@ struct ServicesHistory: View {
     
     @State private var isPresentingServiceForm = false
     @State private var newServiceRecord = Service()
-    @State private var filterValue = 0
-    
+    @State private var dateFilter = 0
+
     func okToShow(dt: Date, filter: Int) -> Bool {
         return filter == 0 || (filter > 0 && dt > Calendar.current.date(byAdding: .month, value: -filter, to: Date())! )
     }
     
     var body: some View {
-        List {
+        VStack {
             HStack {
-                Text("Filter").fontWeight(.bold)
-                
-                Picker(selection: $filterValue, label: Text("")) {
-                    Text("off").tag(0)
-                    Text("3 m").tag(3)
-                    Text("6 m").tag(6)
-                    Text("1 year").tag(12)
+                Picker(selection: $dateFilter, label: Text("")) {
+                    Text("All").tag(0)
+                    Text("3 mon").tag(3)
+                    Text("6 mon").tag(6)
+                    Text("One year").tag(12)
                 }.pickerStyle(.segmented)
                     .font(.caption)
-            } .padding([.bottom, .top], 7)
-            
-            ForEach(Car.allCases) { c in
-                if (services.filter({ $0.car == c }).count>0) {
-                    Section (content: {
-                        ForEach($services) { $rec in
-                            if (rec.car == c) && okToShow(dt: rec.date, filter: filterValue) {
-                                NavigationLink(destination:ServiceForm(rec: $rec)) {
-                                    ServiceRow(rec: rec)
+            } .padding([.bottom, .top], 5)
+                .padding([.leading, .trailing], 10)
+
+            List {
+                ForEach(Car2.allCases) { c in
+                    if (services.filter({ $0.car == c }).count>0) {
+                        Section (content: {
+                            ForEach($services) { $rec in
+                                if (rec.car == c) && okToShow(dt: rec.date, filter: dateFilter) {
+                                    NavigationLink(destination:ServiceForm(rec: $rec)) {
+                                        ServiceRow(rec: rec)
+                                    }
+                                } else {
+                                    EmptyView()
                                 }
-                            } else {
-                                EmptyView()
+                            } .onDelete { indices in
+                                services.remove(atOffsets: indices)
                             }
-                        } .onDelete { indices in
-                            services.remove(atOffsets: indices)
-                        }
-                    }, header: { Text(c.rawValue) })
-                } else {
-                    EmptyView()
+                        }, header: { Text(c.rawValue) })
+                    } else {
+                        EmptyView()
+                    }
                 }
-            }
-        } .navigationTitle("Service History")
+            } .navigationTitle("Service History")
             .toolbar {
                 Button(action: {
                     isPresentingServiceForm = true
@@ -86,6 +86,7 @@ struct ServicesHistory: View {
             .onChange(of: scenePhase) { phase in
                 if phase == .inactive { saveAction() }
             }
+        }
     }
 }
 

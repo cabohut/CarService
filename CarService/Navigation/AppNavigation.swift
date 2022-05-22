@@ -28,6 +28,7 @@ extension Color {
 
 struct AppNavigation: View {
     @Binding var services: [Service]
+    @Binding var cars: [Car]
     
     @State private var fileDataLoaded = false
     @State private var selection: Tab = .tab1
@@ -61,7 +62,7 @@ struct AppNavigation: View {
                         do {
                             services = try await ServicesStore.load()
                             if DEBUG {
-                                services = Service.sampleData
+                                services = Service.sampleServices
                             }
                             services = services.sorted {
                                 $0.date > $1.date }
@@ -73,7 +74,7 @@ struct AppNavigation: View {
                 }
                 .sheet(item: $errorWrapper, onDismiss: {
                     // encountered an error and need to load the sample data
-                    services = Service.sampleData
+                    services = Service.sampleServices
                 }) { wrapper in
                     ErrorView(errorWrapper: wrapper)
                 }
@@ -86,7 +87,7 @@ struct AppNavigation: View {
                 }
             
             NavigationView {
-                Cars()
+                CarsList(cars: $cars, saveAction: {})
             } .navigationViewStyle(.stack)
                 .tabItem {
                     Label ("Cars", systemImage: "car.2.fill")
@@ -97,6 +98,6 @@ struct AppNavigation: View {
 
 struct AppNavigation_Preview: PreviewProvider {
     static var previews: some View {
-        AppNavigation(services: .constant(Service.sampleData))
+        AppNavigation(services: .constant(Service.sampleServices), cars: .constant(Car.sampleCars))
     }
 }

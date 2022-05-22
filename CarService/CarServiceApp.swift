@@ -13,7 +13,7 @@ struct CarServiceApp: App {
     
     var body: some Scene {        
         WindowGroup {
-            AppNavigation(services: $store.services)
+            AppNavigation(services: $store.services, cars: $store.cars)
         }
     }
 }

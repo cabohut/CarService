@@ -1,22 +1,11 @@
 //
-//  ServiceRecord.swift
+//  ServiceForm.swift
 //  CarService
 //
 //  Created by sam on 3/2/22.
 //
 
 import SwiftUI
-
-// custom modifier
-struct _TextFieldModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .padding(3)
-            .frame(width: 160)
-            .multilineTextAlignment(.center)
-            .background(Color(0xF2F2F7, alpha: 0.3))
-    }
-}
 
 let currencyFormatter: NumberFormatter = {
     let f = NumberFormatter()
@@ -38,7 +27,7 @@ struct ServiceForm: View {
                 
                 // Car
                 Picker("Car", selection: $rec.car) {
-                    ForEach(Car.allCases) { c in
+                    ForEach(Car2.allCases) { c in
                         Text(c.rawValue.capitalized).tag(c)
                     }
                 }
@@ -87,7 +76,7 @@ struct ServiceForm: View {
     } // body
 } // struct
 
-struct ServiceRecord_Previews: PreviewProvider {
+struct ServiceForm_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ServiceForm(rec: .constant(Service()))
