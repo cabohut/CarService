@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ServiceRow: View {
-    let rec: Service
-    
+    //let rec: Service
+    let rec: Log
+
     var body: some View {
         HStack {
             rec.type.img()
@@ -42,7 +43,7 @@ struct ServiceRow: View {
 struct ServiceRow_Preview: PreviewProvider {
     static var previews: some View {
         Group {
-            ServiceRow(rec: Service())
+            ServiceRow(rec: Log())
         } .previewLayout(.fixed(width: 300, height: 70))
     }
 }

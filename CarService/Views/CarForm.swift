@@ -37,6 +37,15 @@ struct CarForm: View {
                     TextField("Model", text: $rec.model)
                         .modifier(_TextFieldModifier())
                 }
+
+            // Model
+            HStack {
+                Text("Unique Name")
+                padding()
+                TextField("Unique Name", text: $rec.unique)
+                    .modifier(_TextFieldModifier())
+            }
+
             //} // section
         } // list
     } // body

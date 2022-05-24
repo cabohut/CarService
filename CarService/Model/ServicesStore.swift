@@ -13,7 +13,6 @@ let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .
 let archiveURL = documentsDirectory.appendingPathComponent("car service").appendingPathExtension("plist")
 
 class ServicesStore: ObservableObject {
-    @Published var services: [Service] = []
     @Published var cars: [Car] = []
     
     // MARK: Save/Load data
@@ -26,20 +25,20 @@ class ServicesStore: ObservableObject {
             .appendingPathComponent("services.data")
     }
     
-    static func load() async throws -> [Service] {
+    static func load() async throws -> [Car] {
         try await withCheckedThrowingContinuation { continuation in
             load { result in
                 switch result {
                 case .failure(let error):
                     continuation.resume(throwing: error)
-                case .success(let services):
-                    continuation.resume(returning: services)
+                case .success(let cars):
+                    continuation.resume(returning: cars)
                 }
             }
         }
     }
     
-    static func load(completion: @escaping (Result<[Service], Error>)->Void) {
+    static func load(completion: @escaping (Result<[Car], Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL()
@@ -49,9 +48,9 @@ class ServicesStore: ObservableObject {
                     }
                     return
                 }
-                let services = try JSONDecoder().decode([Service].self, from: file.availableData)
+                let cars = try JSONDecoder().decode([Car].self, from: file.availableData)
                 DispatchQueue.main.async {
-                    completion(.success(services))
+                    completion(.success(cars))
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -62,9 +61,9 @@ class ServicesStore: ObservableObject {
     }
     
     @discardableResult
-    static func save(services: [Service]) async throws -> Int {
+    static func save(cars: [Car]) async throws -> Int {
         try await withCheckedThrowingContinuation { continuation in
-            save(services: services) { result in
+            save(cars: cars) { result in
                 switch result {
                 case .failure(let error):
                     continuation.resume(throwing: error)
@@ -75,14 +74,14 @@ class ServicesStore: ObservableObject {
         }
     }
     
-    static func save(services: [Service], completion: @escaping (Result<Int, Error>)->Void) {
+    static func save(cars: [Car], completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
-                let data = try JSONEncoder().encode(services)
+                let data = try JSONEncoder().encode(cars)
                 let outfile = try fileURL()
                 try data.write(to: outfile)
                 DispatchQueue.main.async {
-                    completion(.success(services.count))
+                    completion(.success(cars.count))
                 }
             } catch {
                 DispatchQueue.main.async {

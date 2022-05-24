@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-private var DEBUG = true
+private var DEBUG = false
 
 extension Color {
     // https://bit.ly/3cUKorw
@@ -27,7 +27,6 @@ extension Color {
 }
 
 struct AppNavigation: View {
-    @Binding var services: [Service]
     @Binding var cars: [Car]
     
     @State private var fileDataLoaded = false
@@ -44,10 +43,10 @@ struct AppNavigation: View {
     var body: some View {
         TabView(selection: $selection) {
             NavigationView {
-                ServicesHistory(services: $services) {
+                ServicesHistory(cars: $cars) {
                     Task {
                         do {
-                            try await ServicesStore.save(services: services)
+                            try await ServicesStore.save(cars: cars)
                         } catch {
                             errorWrapper = ErrorWrapper(error: Error.self as! Error, guidance: "Try again later.")
                         }
@@ -60,12 +59,13 @@ struct AppNavigation: View {
                 .task {
                     if fileDataLoaded == false {
                         do {
-                            services = try await ServicesStore.load()
+                            cars = try await ServicesStore.load()
                             if DEBUG {
-                                services = Service.sampleServices
+                                //services = Service.sampleServices
+                                cars = Car.sampleData
                             }
-                            services = services.sorted {
-                                $0.date > $1.date }
+                            cars = cars.sorted {
+                                $0.make > $1.make}
                             fileDataLoaded = true
                         } catch {
                             errorWrapper = ErrorWrapper(error: error, guidance: "CarService will load sample data and continue.")
@@ -74,7 +74,7 @@ struct AppNavigation: View {
                 }
                 .sheet(item: $errorWrapper, onDismiss: {
                     // encountered an error and need to load the sample data
-                    services = Service.sampleServices
+                    cars = Car.sampleData
                 }) { wrapper in
                     ErrorView(errorWrapper: wrapper)
                 }
@@ -98,6 +98,7 @@ struct AppNavigation: View {
 
 struct AppNavigation_Preview: PreviewProvider {
     static var previews: some View {
-        AppNavigation(services: .constant(Service.sampleServices), cars: .constant(Car.sampleCars))
+        //AppNavigation(services: .constant(Service.sampleServices), cars: .constant(Car.sampleData))
+        AppNavigation(cars: .constant(Car.sampleData))
     }
 }
